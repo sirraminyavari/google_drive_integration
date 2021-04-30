@@ -1,0 +1,1 @@
+export const FIELDS = `nextPageToken, files(id, name, mimeType, modifiedTime, thumbnailLink, iconLink, size, webContentLink, webViewLink, hasThumbnail, originalFilename, fullFileExtension, parents, hasThumbnail, folderColorRgb)`

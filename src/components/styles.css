@@ -1,0 +1,58 @@
+.wrapper {
+    padding: 36px;
+}
+.disconnect-btn {
+    border: none;
+    outline: none;
+    background-color: #f44336;
+    color: white;
+    padding: 10px 35px;
+}
+.disconnect-btn:hover {
+    cursor: pointer;
+    background-color: #e53935;
+}
+.disconnect-box {
+    display: flex;
+    flex-direction: row-reverse;
+}
+.search-box {
+    display: block;
+    margin: 25px auto;
+    padding: 0 30px;
+    max-width: 600px;
+    width: 100%;
+}
+.search-field {
+    outline: none;
+    padding: 10px 12px;
+    font-size: 1rem;
+    width: 540px;
+}
+.filter-box {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.filter-btn {
+    border: 2px solid #1b9cf1;
+    outline: none;
+    color: #1b9cf1;
+    padding: 10px 35px;
+    background-color: rgba(0, 0, 0, 0);
+}
+.filter-btn:hover{
+    cursor: pointer;
+}
+.path-list {
+    display: flex;
+    color: #1b9cf1;
+}
+.path-name {
+    color: #1b9cf1;
+    margin-left: 5px;
+}
+.path-name:hover {
+    color: #05609d;
+    cursor: pointer;
+}
