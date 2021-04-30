@@ -22,24 +22,24 @@ const checkLogin = () => {
 }
 
 const Main = () => {
-    const [query, setQuery] = useState({
-        hasMore: true,
-        pageToken: '',
-        loading: true,
-        value: '',
-        parent: 'root',
-    });
+
   const [loggedIn, setLoggedIn] = useState(false);
-  // const [hasMore, setHasMore] = useState(true);
-  // const [pageToken, setPageToken] = useState('');
-  // const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [pageToken, setPageToken] = useState('');
+  const [loading, setLoading] = useState(false);
   // const [query, setQuery] = useState('');
   // const [parent, setParent] = useState('root');
   const [grid, setGrid] = useState(false);
   const [files, setFiles] = useState([]);
   const [path, setPath] = useState([{name: 'home', id: 'root'}]);
+    const [query, setQuery] = useState({
+        pageToken: '',
+        value: '',
+        parent: 'root',
+    });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+      console.log('loading...')
     gapi.load('client:auth2', () => {
         from(gapi.client.init({
             apiKey: API_KEY,
@@ -48,19 +48,22 @@ const Main = () => {
             scope: SCOPE
         })).pipe(
             tap(() => {
+                console.log('loading done!')
                 setLoggedIn(gapi.auth2.getAuthInstance().isSignedIn.get());
             }),
-            filter(() => gapi.auth2.getAuthInstance().isSignedIn && files.length === 0 ),
-            switchMap(() => {
-                console.log('....')
-                return load();
-            })
+            // filter(() => gapi.auth2.getAuthInstance().isSignedIn && files.length === 0 ),
+            // switchMap(() => {
+            //     console.log('....')
+            //     return load();
+            // })
         ).subscribe();
     });
   }, [loggedIn]);
 
   const load = () => {
-      setQuery({...query, loading: true});
+      if (!gapi.client) return of();
+
+      setLoading(true);
       return from(gapi.client.drive.files.list({
           pageSize: 20,
           orderBy: 'folder',
@@ -69,13 +72,14 @@ const Main = () => {
           pageToken: query.pageToken
       })).pipe(
           tap(x => {
-              console.log(x.result.files);
               const newFiles = files.concat(x.result.files)
               setFiles(newFiles);
+              setLoading(false);
               if (x.result.nextPageToken) {
-                  setQuery({...query, loading: false, pageToken: x.result.nextPageToken, hasMore: true})
+                  setPageToken(x.result.nextPageToken);
+                  setHasMore(true)
               } else {
-                  setQuery({...query, loading: false, hasMore: false})
+                  setHasMore(false)
               }
           }),
           catchError(err => {
@@ -85,7 +89,7 @@ const Main = () => {
   }
 
   const next = () => {
-      load().subscribe();
+      setQuery({...query, pageToken});
   }
 
   const search = (e) => {
@@ -93,11 +97,11 @@ const Main = () => {
           .pipe(
               debounceTime(3000),
               distinctUntilChanged(),
-              tap(x => {
+              tap(value => {
                   setFiles([]);
-                  setQuery({...query, value: x});
+                  setQuery({...query, value});
               }),
-              switchMap(x => load())
+              // switchMap(x => load())
           ).subscribe();
   }
 
@@ -123,10 +127,7 @@ const Main = () => {
 
   const reset = async () => {
       await setFiles([]);
-      setQuery({...query, value: '', pageToken: ''}, () => {
-          console.log(query);
-          load().subscribe();
-      });
+      setQuery({...query, value: '', pageToken: ''});
   }
 
   const disconnect = () => {
@@ -144,26 +145,20 @@ const Main = () => {
       }
       setPath([...path, {name: file.name, id: file.id}])
       setQuery({...query, value: '', pageToken: '', parent: file.id});
-      // setPageToken('');
       setFiles([]);
-      // setParent(file.id);
-      // load().subscribe();
   }
 
   const navigatePath = async (file) => {
       const fileIndex = path.indexOf(file)
       const newPaths = path.slice(0, fileIndex + 1);
-      await setPath(newPaths);
-      // await setParent(file.id);
+      setFiles([]);
+      setPath(newPaths);
       setQuery({...query, value: '', pageToken: '', parent: file.id});
-      // await setPageToken("");
-      await setFiles([]);
-      // load().subscribe();
   }
 
-  // useEffect(() => {
-  //       load().subscribe();
-  //       }, [query])
+  useEffect(() => {
+        load().subscribe();
+  }, [query, loggedIn])
 
   if(!loggedIn) {
     return <Connect connect={() => connect()}></Connect>
@@ -200,14 +195,14 @@ const Main = () => {
       {grid && <GridView></GridView>}
 
         {
-            !query.loading &&
+            !loading &&
             <div >
-                <button disabled={!query.hasMore}  onClick={() => next()}>LOAD MORE</button>
+                <button disabled={!hasMore}  onClick={() => next()}>LOAD MORE</button>
             </div>
         }
 
         {
-            query.loading &&
+            loading &&
             <div > ... loading ...</div>
         }
     </div>
