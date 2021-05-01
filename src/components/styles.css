@@ -44,6 +44,13 @@
 .filter-btn:hover{
     cursor: pointer;
 }
+.selected {
+    border: 2px solid #1b9cf1;
+    outline: none;
+    padding: 10px 35px;
+    background-color: #1b9cf1 !important;
+    color: white !important;
+}
 .path-list {
     display: flex;
     color: #1b9cf1;
@@ -55,4 +62,93 @@
 .path-name:hover {
     color: #05609d;
     cursor: pointer;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-auto-rows: 64px;
+    column-gap: 8px;
+    row-gap: 12px;
+    padding: 36px 50px;
+}
+.grid-item {
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    height: 64px;
+}
+.grid-item-content {
+    display: flex;
+}
+.context-menu {
+    position: fixed;
+    z-index: 10000;
+    width: 260px;
+    background-color: white;
+    transform: scale(0);
+    transform-origin: top left;
+    -webkit-box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.22);
+    -moz-box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.22);
+    box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.22);
+    border-radius: 6px;
+    border: 1px solid #eeeeee;
+}
+.context-menu.active {
+    transform: scale(1);
+    transition: transform 200ms ease-in-out;
+}
+.context-menu div {
+    padding: 8px 12px;
+    font-size: 15px;
+    color: #616161;
+    text-align: start;
+    height: 35px;
+    line-height: 35px;
+}
+.context-menu div:hover {
+    cursor: pointer;
+    background-color: #fafafa;
+}
+.embed-file-container {
+    display: block;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1100;
+    background-color: rgba(40, 40, 40, 0.8);
+    overflow-y: hidden;
+    -ms-overflow-style: none;
+    min-width: 100% !important;
+}
+.embed-file-wrapper{
+    display: block;
+    width: 100%;
+    height: 100vh;
+}
+.fab{
+    width: 44px;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    border-radius: 100%;
+    -webkit-box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.22);
+    -moz-box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.22);
+    box-shadow: 9px 10px 5px -6px rgba(0,0,0,0.22);
+    background-color: #E91E63;
+    color: white;
+    position: absolute;
+    bottom: 35px;
+    right: 35px;
+    z-index: 10000;
+}
+.fab:hover {
+    cursor: pointer;
+    background-color: #c2185b;
+}
+.checkbox-container {
+    padding-right: 8px;
 }

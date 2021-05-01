@@ -1,11 +1,13 @@
 import React from 'react';
 import FolderIcon from "./folder.icon";
+import Checkbox from "./check.box";
 
 const ListItem = (props) => {
 
   const { file } = props;
   return (
     <div style={{display: 'flex', marginBottom: '8px'}}>
+        { file.mimeType !== 'application/vnd.google-apps.folder' && <div className="checkbox-container"><Checkbox></Checkbox></div>}
 
         {file.mimeType !== 'application/vnd.google-apps.folder' && <img src={file.thumbnailLink} style={{width: '44px', height: '54px'}}/> }
 
