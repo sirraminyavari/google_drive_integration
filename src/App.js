@@ -3,11 +3,14 @@ import './App.css';
 import Main from './components/main';
 
 function App() {
-  return (
-    <div className="App">
-      <Main></Main>
-    </div>
-  );
+    const getSelectedItems = (files) => {
+        console.log(files);
+    }
+    return (
+        <div className="App">
+            <Main selected={getSelectedItems}></Main>
+        </div>
+    );
 }
 
 export default App;

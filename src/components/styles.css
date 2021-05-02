@@ -1,4 +1,8 @@
 .wrapper {
+    display: block;
+    margin: auto;
+    max-width: 1200px;
+    width: 100%;
     padding: 36px;
 }
 .disconnect-btn {
@@ -8,26 +12,40 @@
     color: white;
     padding: 10px 35px;
 }
+.insert-btn {
+    border: none;
+    outline: none;
+    background-color: #049b25;
+    color: white;
+    padding: 10px 35px;
+    margin-right: 5px;
+}
+.insert-btn:disabled {
+    background-color: #e0e0e0;
+}
+.insert-btn:hover {
+    cursor: pointer;
+}
 .disconnect-btn:hover {
     cursor: pointer;
     background-color: #e53935;
 }
 .disconnect-box {
     display: flex;
-    flex-direction: row-reverse;
+    justify-content: space-between;
+    /*flex-direction: row-reverse;*/
 }
 .search-box {
     display: block;
     margin: 25px auto;
-    padding: 0 30px;
-    max-width: 600px;
     width: 100%;
 }
 .search-field {
+    box-sizing: border-box;
     outline: none;
     padding: 10px 12px;
     font-size: 1rem;
-    width: 540px;
+    width: 100%;
 }
 .filter-box {
     display: flex;
@@ -40,6 +58,7 @@
     color: #1b9cf1;
     padding: 10px 35px;
     background-color: rgba(0, 0, 0, 0);
+    margin-right: 5px;
 }
 .filter-btn:hover{
     cursor: pointer;
@@ -50,6 +69,7 @@
     padding: 10px 35px;
     background-color: #1b9cf1 !important;
     color: white !important;
+    margin-right: 5px;
 }
 .path-list {
     display: flex;
@@ -62,6 +82,9 @@
 .path-name:hover {
     color: #05609d;
     cursor: pointer;
+}
+.list-container {
+    padding: 36px 50px;
 }
 .grid-container {
     display: grid;
@@ -151,4 +174,64 @@
 }
 .checkbox-container {
     padding-right: 8px;
+}
+.list-item-container {
+    display: flex;
+    margin-bottom: 8px;
+}
+.list-item-name {
+    margin-left: 25px;
+    text-align: start;
+    height: 54px;
+    line-height: 54px;
+    font-size: 16px;
+    font-weight: 400;
+    max-width: 600px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.list-item-date {
+    margin-left: 25px;
+    text-align: start;
+    height: 54px;
+    line-height: 54px;
+    font-weight: 300;
+    max-width: 300px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    color: #bdbdbd;
+}
+.grid-item-details {
+    display: flex;
+    height: 54px;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 5px;
+}
+.grid-item-details div {
+    text-align: start;
+    max-width: 180px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.checkbox-placeholder {
+    width: 21px;
+}
+.load-more-btn {
+    border: none;
+    outline: none;
+    font-weight: 500;
+    font-size: 16px;
+    color: #049b25;
+    background-color: rgba(0, 0, 0, 0);
+}
+.load-more-btn:hover {
+    cursor: pointer;
 }

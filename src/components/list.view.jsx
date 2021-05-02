@@ -42,6 +42,14 @@ const ListView = (props) => {
         props.preview(file);
     }
 
+    const toggleSelect = (status, file) => {
+        if (status) {
+            props.addToSelected(file);
+        } else {
+            props.removeFromSelected(file);
+        }
+    }
+
     useEffect(() => {
 
     }, [menuItem]);
@@ -55,11 +63,15 @@ const ListView = (props) => {
                          openInTab={openInNewTab}></ContextMenu>
 
             {!grid &&
-            files.map(x => <div key={shortid.generate()}
-                                onDoubleClick={() => openFolder(x)} onContextMenu={e => context(e, x)}
-                                onClick={() => removeContext()}>
-                <ListItem file={x}></ListItem>
-            </div>)
+                <div className="list-container">
+                    {
+                        files.map(x => <div key={shortid.generate()}
+                                            onDoubleClick={() => openFolder(x)} onContextMenu={e => context(e, x)}
+                                            onClick={() => removeContext()}>
+                            <ListItem file={x} select={toggleSelect}></ListItem>
+                        </div>)
+                    }
+                </div>
             }
 
             {grid &&
@@ -69,7 +81,7 @@ const ListView = (props) => {
                     files.map(x => <div key={shortid.generate()} onDoubleClick={() => props.open(x)}
                                         onClick={() => removeContext()}
                                         onContextMenu={e => context(e, x)}>
-                        <GridItem file={x}></GridItem>
+                        <GridItem file={x} file={x} select={toggleSelect}></GridItem>
                     </div>)
                 }
             </div>
