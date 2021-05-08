@@ -1,13 +1,13 @@
 import React from 'react';
 
-const EmbedFilePreview = ({ url, close }) => {
+const EmbedFilePreview = React.memo(({ url, close }) => {
     return (
         <div className="embed-file-container">
-            <div >
-                <iframe className="embed-file-wrapper" src={url} frameborder="0"></iframe>
+            <div>
+                <embed title='file-preview' className="embed-file-wrapper" src={`${url}&output=embed`}></embed>
             </div>
             <div className="fab" onClick={() => close()}>&#10005;</div>
         </div>
     )
-}
+});
 export default EmbedFilePreview;

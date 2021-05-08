@@ -11,6 +11,7 @@
     background-color: #f44336;
     color: white;
     padding: 10px 35px;
+    cursor: pointer;
 }
 .insert-btn {
     border: none;
@@ -19,15 +20,12 @@
     color: white;
     padding: 10px 35px;
     margin-right: 5px;
+    cursor: pointer;
 }
 .insert-btn:disabled {
     background-color: #e0e0e0;
 }
-.insert-btn:hover {
-    cursor: pointer;
-}
 .disconnect-btn:hover {
-    cursor: pointer;
     background-color: #e53935;
 }
 .disconnect-box {
@@ -59,8 +57,6 @@
     padding: 10px 35px;
     background-color: rgba(0, 0, 0, 0);
     margin-right: 5px;
-}
-.filter-btn:hover{
     cursor: pointer;
 }
 .selected {
@@ -78,10 +74,10 @@
 .path-name {
     color: #1b9cf1;
     margin-left: 5px;
+    cursor: pointer;
 }
 .path-name:hover {
     color: #05609d;
-    cursor: pointer;
 }
 .list-container {
     padding: 36px 50px;
@@ -126,9 +122,9 @@
     text-align: start;
     height: 35px;
     line-height: 35px;
+    cursor: pointer;
 }
 .context-menu div:hover {
-    cursor: pointer;
     background-color: #fafafa;
 }
 .embed-file-container {
@@ -167,9 +163,9 @@
     bottom: 35px;
     right: 35px;
     z-index: 10000;
+    cursor: pointer;
 }
 .fab:hover {
-    cursor: pointer;
     background-color: #c2185b;
 }
 .checkbox-container {
@@ -231,7 +227,5 @@
     font-size: 16px;
     color: #049b25;
     background-color: rgba(0, 0, 0, 0);
-}
-.load-more-btn:hover {
     cursor: pointer;
 }

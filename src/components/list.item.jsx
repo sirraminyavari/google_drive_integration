@@ -28,7 +28,7 @@ const ListItem = (props) => {
             }
 
             {file.mimeType !== 'application/vnd.google-apps.folder' &&
-            <img src={file.thumbnailLink} style={{width: '44px', height: '54px'}}/>}
+            <img src={file.thumbnailLink} style={{width: '44px', height: '54px'}} alt=""/>}
 
             {file.mimeType === 'application/vnd.google-apps.folder' &&
             <FolderIcon color={file.folderColorRgb}></FolderIcon>}
