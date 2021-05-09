@@ -8,6 +8,7 @@ import {FIELDS} from "./util";
 import './styles.css'
 import PathView from "./path.view";
 import EmbedFilePreview from "./embed.file.preview";
+import ErrorPage from "./error.page";
 
 
     /* *
@@ -37,6 +38,7 @@ const SCOPE = `https://www.googleapis.com/auth/drive https://www.googleapis.com/
 const initQuery = {pageToken: '', value: '', parent: 'root'};
 const initPath = [{name: 'root', id: 'root'}];
 const initEmbed = { status: false, url: ''};
+const fetchDataErrorInit = { status: false, message: null, code: 0}
 
     //  use context api to pass selected files to child components
 export const SelectedFileContext = React.createContext([]);
@@ -78,7 +80,7 @@ const Main = (props) => {
     const [query, setQuery] = useState(initQuery);
     const [embed, setEmbed] = useState(initEmbed)
     const [selected, setSelected] = useState([]);
-    const [fetchDataError, setFetchDataError] = useState(false);
+    const [fetchDataError, setFetchDataError] = useState(fetchDataErrorInit);
 
 
     /*
@@ -133,7 +135,11 @@ const Main = (props) => {
                 }
             }),
             catchError(err => {
-                setFetchDataError(true);
+                setFetchDataError({
+                    status: true,
+                    message: err.result.error.message,
+                    code: err.result.error.code
+                });
                 return of(err);
             })
         );
@@ -295,6 +301,13 @@ const Main = (props) => {
     }, [query, loggedIn])
 
 
+    const returnToHome = () => {
+        setFetchDataError(fetchDataErrorInit);
+        setPath(initPath);
+        load().subscribe();
+    }
+
+
 
     if (!loggedIn) {
         return <Connect connect={() => connect()}></Connect>
@@ -355,6 +368,7 @@ const Main = (props) => {
 
             <PathView paths={path} navigate={navigatePath}></PathView>
 
+            { !fetchDataError.status &&
             <SelectedFileContext.Provider value={selected}>
                 <ListView files={files}
                           open={openFolder}
@@ -363,21 +377,25 @@ const Main = (props) => {
                           removeFromSelected={removeFromSelected}>
                 </ListView>
             </SelectedFileContext.Provider>
-
+            }
 
             {
-                !loading &&
+                !loading && !fetchDataError.status &&
                 <div style={{display: (!hasMore) ? 'none' : 'block'}}>
                     <button onClick={() => next()} className="load-more-btn">LOAD MORE</button>
                 </div>
             }
 
             {
-                loading &&
+                loading && !fetchDataError.status &&
                 <div> ... loading ...</div>
             }
 
             {embed.status && <EmbedFilePreview close={closeEmbed} url={embed.url}></EmbedFilePreview>}
+
+            {fetchDataError.status && <ErrorPage error={fetchDataError}
+                                                 back={returnToHome}
+                                                 reload={reset}></ErrorPage>}
         </div>
     );
 }
