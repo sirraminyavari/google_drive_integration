@@ -126,6 +126,7 @@ const Main = (props) => {
                 const newFiles = files.concat(x.result.files)
                 setFiles(newFiles);
                 setLoading(false);
+                console.log(newFiles)
                 if (x.result.nextPageToken) {
                     // nextPageToken is not undefined which is mean there is left data to fetch 
                     setPageToken(x.result.nextPageToken);
@@ -391,7 +392,7 @@ const Main = (props) => {
                 <div> ... loading ...</div>
             }
 
-            {embed.status && <EmbedFilePreview close={closeEmbed} url={embed.url}></EmbedFilePreview>}
+            {embed.status && <EmbedFilePreview close={closeEmbed} url={embed.url} api={gapi}></EmbedFilePreview>}
 
             {fetchDataError.status && <ErrorPage error={fetchDataError}
                                                  back={returnToHome}
